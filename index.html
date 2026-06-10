@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Note Audio Cafe | High-End Acoustic Curators</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand_bg: '#F4F6F8', 
+                        brand_surface: '#FFFFFF', 
+                        brand_blue: '#0F2C59', 
+                        brand_blue_light: '#E8EDF2', 
+                        brand_text: '#0A1A3A', 
+                        brand_muted: '#64748B', 
+                        brand_accent: '#3B82F6', 
+                    },
+                    fontFamily: {
+                        serif: ['"Instrument Serif"', 'serif'],
+                        sans: ['"Hanken Grotesk"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F4F6F8;
+            color: #0A1A3A;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Deep Editorial Grids */
+        .grid-line { border-color: #E8EDF2; }
+        .grid-line-heavy { border-color: #D1D9E0; border-width: 2px; }
+        
+        .ease-editorial { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* Professional Clean Image Hover */
+        .img-wrap {
+            overflow: hidden;
+            background: #E8EDF2;
+            position: relative;
+        }
+        .img-wrap img {
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0.85;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .group:hover .img-wrap img { opacity: 1; }
+
+        /* Tactile Hardware Button Hover */
+        .btn-tactile {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-tactile::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 120%; height: 300%;
+            background: #0F2C59;
+            transform: translate(-50%, -50%) scaleY(0);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+        .btn-tactile:hover::before { transform: translate(-50%, -50%) scaleY(1); }
+        .btn-tactile:hover { color: #FFFFFF !important; border-color: #0F2C59; }
+
+        /* Analog Meter Link Hover */
+        .link-meter {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+        .link-meter::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 100%; height: 1px;
+            background-color: currentColor;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .link-meter:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+            animation: pulse-meter 1.5s infinite;
+        }
+        @keyframes pulse-meter {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Hero Animations */
+        @keyframes slowSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-spin-slow { animation: slowSpin 50s linear infinite; }
+        .animate-spin-slower-reverse { animation: slowSpin 70s linear infinite reverse; }
+        
+        .hero-text-fade {
+            opacity: 0;
+            animation: floatUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #F4F6F8; }
+        ::-webkit-scrollbar-thumb { background: #64748B; }
+    </style>
+</head>
+<body class="selection:bg-brand_blue selection:text-white flex flex-col min-h-screen">
+
+    <div id="top-bar" class="bg-brand_surface border-b grid-line py-2 text-center text-[9px] uppercase tracking-[0.25em] font-medium text-brand_muted flex justify-center items-center gap-3 relative z-50 transition-transform duration-500">
+        <span>Verified Dealer</span>
+        <span class="w-1 h-1 rounded-full bg-brand_accent"></span>
+        <span>100% Positive Feedback</span>
+    </div>
+
+    <header id="main-header" class="absolute top-8 w-full z-40 bg-transparent ease-editorial border-t grid-line border-b-0">
+        <div class="max-w-[1600px] mx-auto px-6 lg:px-12 grid grid-cols-2 md:grid-cols-12 h-24 items-center">
+            
+            <a href="#" class="col-span-1 md:col-span-3 flex flex-col justify-center items-start group">
+                <h1 class="font-serif text-3xl md:text-4xl italic tracking-tight text-brand_blue group-hover:text-brand_accent ease-editorial leading-none">Blue Note</h1>
+                <span class="text-[8px] uppercase tracking-[0.4em] text-brand_muted mt-1.5">Audio Cafe</span>
+            </a>
+
+            <div class="hidden md:flex col-span-6 justify-center items-center space-x-12 text-[10px] uppercase tracking-widest font-semibold text-brand_text">
+                <a href="#newly-listed" class="link-meter hover:text-brand_blue ease-editorial">New Arrivals</a>
+                <a href="#ending-soon" class="link-meter hover:text-brand_blue ease-editorial">Ending Soon</a>
+                <a href="#all-items" class="link-meter hover:text-brand_blue ease-editorial">All Gear</a>
+            </div>
+
+            <div class="col-span-1 md:col-span-3 flex justify-end items-center space-x-8 text-[10px] uppercase tracking-widest font-semibold text-brand_text">
+                <a href="mailto:BlueNoteAudioCafe@gmail.com" class="hidden lg:block link-meter hover:text-brand_blue ease-editorial">Contact</a>
+                <button onclick="toggleCartModal()" class="flex items-center gap-2 hover:text-brand_blue ease-editorial group">
+                    <span>Cart</span> 
+                    <span class="w-5 h-5 rounded-full border border-brand_blue_light flex items-center justify-center text-[9px] group-hover:border-brand_blue ease-editorial" id="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="max-w-[1600px] mx-auto border-b border-x grid-line bg-brand_bg relative pt-32 pb-16 overflow-hidden">
+        <div class="absolute inset-0 z-0 pointer-events-none flex items-center justify-center opacity-[0.04]">
+            <div class="absolute w-[800px] h-[800px] rounded-full border border-brand_blue animate-spin-slow" style="border-dasharray: 2 8;"></div>
+            <div class="absolute w-[1200px] h-[1200px] rounded-full border border-brand_blue animate-spin-slower-reverse" style="border-dasharray: 10 30;"></div>
+        </div>
+
+        <div class="px-6 lg:px-12 py-32 lg:py-48 flex flex-col items-center text-center relative z-10">
+            <span class="hero-text-fade text-[9px] uppercase tracking-[0.3em] font-bold text-brand_muted mb-8 block border border-brand_blue_light px-4 py-2 bg-brand_surface shadow-sm" style="animation-delay: 100ms;">
+                Eugene, Oregon
+            </span>
+            <h2 class="hero-text-fade font-serif text-5xl md:text-7xl lg:text-[7rem] leading-[0.95] tracking-tight text-brand_blue max-w-5xl mx-auto mb-10" style="animation-delay: 300ms;">
+                Curators of premium <br><i class="text-brand_text font-light">high-end audio.</i>
+            </h2>
+            <p class="hero-text-fade font-sans text-sm md:text-base font-medium text-brand_muted leading-relaxed max-w-lg mx-auto" style="animation-delay: 500ms;">
+                Discover our newest arrivals. Factory-sealed McIntosh amplifiers to pristine JBL Synthesis monitors, delivered to you with zero sales tax.
+            </p>
+        </div>
+    </section>
+
+    <section id="newly-listed" class="max-w-[1600px] mx-auto border-b border-x grid-line bg-brand_surface pt-12">
+        <div class="px-6 lg:px-12 py-16 flex flex-col md:flex-row justify-between items-end reveal">
+            <div>
+                <p class="text-[9px] uppercase tracking-[0.3em] font-semibold text-brand_muted mb-4">Latest Additions</p>
+                <h2 class="font-serif text-4xl md:text-5xl text-brand_blue leading-none">Newly Listed.</h2>
+            </div>
+            <a href="#all-items" class="link-meter text-[10px] uppercase tracking-widest font-semibold text-brand_text mt-6 md:mt-0">View Catalog</a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 border-t grid-line">
+            
+            <article class="lg:col-span-2 group relative flex flex-col reveal bg-brand_surface border-b lg:border-b-0 lg:border-r grid-line">
+                <div class="aspect-[16/10] img-wrap border-b grid-line">
+                    <img src="https://www.safeandsoundhq.com/cdn/shop/products/L100C.jpg?v=1754083258" alt="JBL L100 Classic">
+                    <span class="absolute top-6 left-6 bg-brand_surface px-3 py-1.5 text-[8px] uppercase tracking-widest font-bold text-brand_blue border grid-line shadow-sm z-10">Monitors</span>
+                </div>
+                <div class="p-8 lg:p-12 flex flex-col flex-grow justify-between bg-brand_bg/30">
+                    <div class="mb-10">
+                        <h3 class="font-serif text-3xl md:text-4xl text-brand_text leading-tight mb-3">JBL L100 Classic - PAIR</h3>
+                        <p class="font-sans text-brand_muted text-[10px] uppercase tracking-widest">JBL</p>
+                    </div>
+                    <div class="pt-6 border-t grid-line flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                        <span class="font-serif text-3xl text-brand_blue">$3,250.00</span>
+                        <div class="flex items-center gap-4 w-full md:w-auto">
+                            <button onclick="openOfferModal('JBL L100 Classic - PAIR')" class="text-[9px] uppercase tracking-widest font-semibold text-brand_muted hover:text-brand_blue link-meter">Make Offer</button>
+                            <button onclick="addToCart('JBL-L100', 'JBL L100 Classic', 3250, 'https://www.safeandsoundhq.com/cdn/shop/products/L100C.jpg?v=1754083258')" class="btn-tactile px-6 py-3 border border-brand_blue_light text-[9px] uppercase tracking-widest font-bold text-brand_text bg-brand_surface shadow-sm flex-grow md:flex-grow-0 text-center">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <div class="lg:col-span-1 flex flex-col divide-y grid-line">
+                <article class="group relative flex flex-col flex-grow reveal bg-brand_surface">
+                    <div class="aspect-video lg:aspect-square img-wrap border-b grid-line">
+                        <img src="https://theaudiosolutions.com/cdn/shop/files/JBLSDR38_1.jpg?v=1687374651" alt="JBL Synthesis SDR-38">
+                        <span class="absolute top-4 left-4 bg-brand_surface px-2 py-1 text-[8px] uppercase tracking-widest font-bold text-brand_blue border grid-line shadow-sm z-10">Processors</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div class="mb-6">
+                            <h3 class="font-serif text-2xl text-brand_text leading-tight mb-2">JBL Synthesis SDR-38</h3>
+                            <p class="font-sans text-brand_muted text-[9px] uppercase tracking-widest">JBL Synthesis</p>
+                        </div>
+                        <div class="pt-4 border-t grid-line flex justify-between items-end">
+                            <span class="font-serif text-xl text-brand_blue">$4,500.00</span>
+                            <button onclick="addToCart('JBL-SDP55', 'JBL Synthesis SDR-38', 4500, 'https://theaudiosolutions.com/cdn/shop/files/JBLSDR38_1.jpg?v=1687374651')" class="text-[9px] uppercase tracking-widest font-bold text-brand_text link-meter">Buy Now</button>
+                        </div>
+                    </div>
+                </article>
+                <article class="group relative flex flex-col flex-grow reveal bg-brand_surface">
+                    <div class="aspect-video lg:aspect-square img-wrap border-b grid-line">
+                        <img src="https://www.marklevinson.com/on/demandware.static/-/Sites-ML-US-NCOM-Library/default/dwa54930fb/glp/pdp-v2/media/no519-thumb.jpg" alt="Mark Levinson 585.5 Integrated Amplifier">
+                        <span class="absolute top-4 left-4 bg-brand_surface px-2 py-1 text-[8px] uppercase tracking-widest font-bold text-brand_blue border grid-line shadow-sm z-10">Amplifiers</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div class="mb-6">
+                            <h3 class="font-serif text-2xl text-brand_text leading-tight mb-2">Mark Levinson 585.5 Integrated Amplifier</h3>
+                            <p class="font-sans text-brand_muted text-[9px] uppercase tracking-widest">Mark Levinson</p>
+                        </div>
+                        <div class="pt-4 border-t grid-line flex justify-between items-end">
+                            <span class="font-serif text-xl text-brand_blue">$10,000.00</span>
+                            <button onclick="addToCart('ML-5805', 'Mark Levinson 585.5 Integrated Amplifier', 10000, 'https://www.marklevinson.com/on/demandware.static/-/Sites-ML-US-NCOM-Library/default/dwa54930fb/glp/pdp-v2/media/no519-thumb.jpg')" class="text-[9px] uppercase tracking-widest font-bold text-brand_text link-meter">Buy Now</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="ending-soon" class="max-w-[1600px] mx-auto border-b border-x grid-line bg-brand_bg pt-12">
+        <div class="px-6 lg:px-12 py-16 flex justify-between items-end reveal">
+            <div>
+                <p class="text-[9px] uppercase tracking-[0.3em] font-semibold text-brand_muted mb-4">Last Chance</p>
+                <h2 class="font-serif text-4xl md:text-5xl text-brand_blue leading-none italic">Ending Soon.</h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 border-t grid-line">
+            
+            <div class="lg:col-span-1 flex flex-col divide-y grid-line border-b lg:border-b-0 lg:border-r grid-line">
+                <article class="group relative flex flex-col flex-grow reveal bg-brand_surface">
+                    <div class="aspect-video lg:aspect-square img-wrap border-b grid-line">
+                        <img src="https://www.cnet.com/a/img/resize/9228287ee419e676ea9bbb81825f74227fef4a96/hub/2012/04/24/88851d7f-cc2e-11e2-9a4a-0291187b029a/JBL-studio-monitor-4429_1.jpg?auto=webp&width=768" alt="JBL 4429 Studio Monitor-PAIR">
+                        <span class="absolute top-4 left-4 bg-brand_surface px-2 py-1 text-[8px] uppercase tracking-widest font-bold text-brand_blue border grid-line shadow-sm z-10">Monitors</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div class="mb-6">
+                            <h3 class="font-serif text-2xl text-brand_text leading-tight mb-2">JBL 4429 Studio Monitor</h3>
+                            <p class="font-sans text-brand_muted text-[9px] uppercase tracking-widest">JBL</p>
+                        </div>
+                        <div class="pt-4 border-t grid-line flex justify-between items-end">
+                            <span class="font-serif text-xl text-brand_blue">$3,500.00</span>
+                            <button onclick="addToCart('JBL-4429', 'JBL 4429 Studio Monitor', 3500, 'https://www.cnet.com/a/img/resize/9228287ee419e676ea9bbb81825f74227fef4a96/hub/2012/04/24/88851d7f-cc2e-11e2-9a4a-0291187b029a/JBL-studio-monitor-4429_1.jpg?auto=webp&width=768')" class="text-[9px] uppercase tracking-widest font-bold text-brand_text link-meter">Buy Now</button>
+                        </div>
+                    </div>
+                </article>
+                <article class="group relative flex flex-col flex-grow reveal bg-brand_surface">
+                    <div class="aspect-video lg:aspect-square img-wrap border-b grid-line">
+                        <img src="https://mm.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd2c5e99f/pdp/l100-classic-75-pair-3q-904x560.jpg" alt="JBL L100 75th Edition">
+                        <span class="absolute top-4 left-4 bg-brand_surface px-2 py-1 text-[8px] uppercase tracking-widest font-bold text-brand_blue border grid-line shadow-sm z-10">Speakers</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div class="mb-6">
+                            <h3 class="font-serif text-2xl text-brand_text leading-tight mb-2">JBL L100 75th Edition</h3>
+                            <p class="font-sans text-brand_muted text-[9px] uppercase tracking-widest">JBL</p>
+                        </div>
+                        <div class="pt-4 border-t grid-line flex justify-between items-end">
+                            <span class="font-serif text-xl text-brand_blue">$6,200.00</span>
+                            <button onclick="addToCart('JBL-L100-75', 'JBL L100 75th Edition', 6200, 'https://mm.jbl.com/on/demandware.static/-/Sites-masterCatalog_Harman/default/dwd2c5e99f/pdp/l100-classic-75-pair-3q-904x560.jpg')" class="text-[9px] uppercase tracking-widest font-bold text-brand_text link-meter">Buy Now</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <article class="lg:col-span-2 group relative flex flex-col reveal bg-brand_surface">
+                <div class="aspect-[16/10] img-wrap border-b grid-line">
+                    <img src="https://eqaudio.ca/wp-content/uploads/Harman_MLNo534_Hero_Web.png" alt="Mark Levinson No. 534">
+                    <span class="absolute top-6 left-6 bg-brand_surface px-3 py-1.5 text-[8px] uppercase tracking-widest font-bold text-brand_blue border grid-line shadow-sm z-10">Amplifiers</span>
+                </div>
+                <div class="p-8 lg:p-12 flex flex-col flex-grow justify-between bg-brand_surface">
+                    <div class="mb-10">
+                        <h3 class="font-serif text-3xl md:text-4xl text-brand_text leading-tight mb-3">Mark Levinson No. 534</h3>
+                        <p class="font-sans text-brand_muted text-[10px] uppercase tracking-widest">Mark Levinson</p>
+                    </div>
+                    <div class="pt-6 border-t grid-line flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                        <span class="font-serif text-3xl text-brand_blue">$12,000.00</span>
+                        <div class="flex items-center gap-4 w-full md:w-auto">
+                            <button onclick="openOfferModal('Mark Levinson No. 534')" class="text-[9px] uppercase tracking-widest font-semibold text-brand_muted hover:text-brand_blue link-meter">Make Offer</button>
+                            <button onclick="addToCart('ML-534', 'Mark Levinson No. 534', 12000, 'https://eqaudio.ca/wp-content/uploads/Harman_MLNo534_Hero_Web.png')" class="btn-tactile px-6 py-3 border border-brand_blue_light text-[9px] uppercase tracking-widest font-bold text-brand_text bg-brand_bg shadow-sm flex-grow md:flex-grow-0 text-center">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <section class="max-w-[1600px] mx-auto border-b border-x grid-line bg-brand_surface overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-12 border-t border-b grid-line-heavy my-16 lg:my-32 mx-6 lg:mx-12">
+            
+            <div class="md:col-span-5 border-r grid-line-heavy p-10 lg:p-20 flex flex-col justify-center reveal bg-brand_blue text-white">
+                <span class="text-[9px] uppercase tracking-[0.3em] font-bold text-brand_blue_light mb-8 block border border-brand_blue_light/30 px-4 py-2 w-max bg-brand_blue/50">Verified Feedback</span>
+                <h2 class="font-serif text-5xl lg:text-6xl leading-none tracking-tight mb-8 text-white">
+                    Audiogon <br>Community.
+                </h2>
+                <p class="font-light text-brand_blue_light text-sm leading-relaxed opacity-90">
+                    With a 100% positive feedback rating, we pride ourselves on secure shipping, zero sales tax transparency, and white-glove customer service directly overseen by our owner.
+                </p>
+            </div>
+
+            <div class="md:col-span-7 p-10 lg:p-24 flex flex-col justify-center bg-brand_bg relative reveal">
+                <div class="swiper testimonialSwiper w-full max-w-2xl">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide cursor-grab">
+                            <div class="flex gap-1 text-brand_accent mb-6">★★★★★</div>
+                            <p class="font-serif text-2xl lg:text-3xl text-brand_blue leading-[1.4] italic mb-8">
+                                "Flawless transaction. Don provided excellent communication throughout. The McIntosh gear arrived double-boxed, factory-sealed, exactly as described. The zero sales tax was a huge plus."
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full border grid-line flex items-center justify-center font-serif text-lg bg-brand_surface text-brand_blue">MJ</div>
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-widest font-bold text-brand_text">Michael J.</p>
+                                    <p class="text-[9px] uppercase tracking-[0.2em] text-brand_muted mt-1">Verified Buyer • May 2026</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide cursor-grab">
+                            <div class="flex gap-1 text-brand_accent mb-6">★★★★★</div>
+                            <p class="font-serif text-2xl lg:text-3xl text-brand_blue leading-[1.4] italic mb-8">
+                                "Purchased a pair of JBL Synthesis monitors. Don at Blue Note was incredibly helpful, taking time to discuss my specific room setup before the sale. Shipping was fast and secure."
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full border grid-line flex items-center justify-center font-serif text-lg bg-brand_surface text-brand_blue">ST</div>
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-widest font-bold text-brand_text">Sarah T.</p>
+                                    <p class="text-[9px] uppercase tracking-[0.2em] text-brand_muted mt-1">Verified Buyer • March 2026</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination !relative !mt-12 !text-left !w-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="max-w-[1600px] mx-auto bg-brand_blue text-white mt-auto w-full">
+        <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x border-b border-brand_blue_light/20" style="border-color: rgba(232, 237, 242, 0.1);">
+            
+            <div class="p-10 lg:p-16 flex flex-col justify-between min-h-[300px]">
+                <h4 class="font-serif text-4xl italic text-white">Blue Note</h4>
+                <p class="text-xs text-brand_blue_light font-light leading-relaxed max-w-xs mt-8 opacity-80">Authorized premium dealer serving discerning audio clients nationwide.</p>
+            </div>
+
+            <div class="p-10 lg:p-16">
+                <h5 class="text-[9px] uppercase tracking-[0.2em] font-bold text-brand_blue_light mb-6 opacity-70">Location</h5>
+                <p class="text-xs text-brand_blue_light font-light leading-relaxed opacity-90">2390 Agate Street<br>Eugene, Oregon 97403<br>United States</p>
+            </div>
+
+            <div class="p-10 lg:p-16">
+                <h5 class="text-[9px] uppercase tracking-[0.2em] font-bold text-brand_blue_light mb-6 opacity-70">Navigation</h5>
+                <ul class="space-y-3 text-xs text-brand_blue_light font-light opacity-90">
+                    <li><a href="#newly-listed" class="hover:text-white transition-colors">New Arrivals</a></li>
+                    <li><a href="#ending-soon" class="hover:text-white transition-colors">Ending Soon</a></li>
+                    <li><a href="mailto:BlueNoteAudioCafe@gmail.com" class="hover:text-white transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="p-10 lg:p-16">
+                <h5 class="text-[9px] uppercase tracking-[0.2em] font-bold text-brand_blue_light mb-6 opacity-70">Direct Line</h5>
+                <a href="tel:4582619988" class="text-xl font-serif text-white block mb-4 hover:text-brand_accent transition-colors">458.261.9988</a>
+                <a href="mailto:BlueNoteAudioCafe@gmail.com" class="text-xs text-brand_blue_light hover:text-white transition-colors">Email Us</a>
+            </div>
+
+        </div>
+
+        <div class="p-6 lg:px-12 flex flex-col sm:flex-row justify-between items-center text-[9px] uppercase tracking-[0.2em] font-semibold text-brand_blue_light opacity-70">
+            <p>© 2026 Blue Note Audio Cafe.</p>
+            <div class="mt-4 sm:mt-0">
+                prototype by <a href="https://www.skyloftdigital.com" target="_blank" rel="noopener" class="text-white hover:text-brand_accent transition-colors ml-1 border-b border-white hover:border-brand_accent pb-0.5 opacity-100">Skyloft Digital</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <div id="toast" class="fixed bottom-8 right-8 z-[100] bg-brand_surface border grid-line shadow-2xl p-4 flex items-center gap-4 transform translate-y-24 opacity-0 transition-all duration-500 ease-in-out">
+        <div class="w-8 h-8 bg-brand_bg border grid-line flex items-center justify-center text-brand_blue">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <p class="text-[9px] uppercase tracking-widest font-bold text-brand_muted">Added to Cart</p>
+            <p id="toast-msg" class="font-serif text-lg text-brand_text leading-none mt-1">Item Name</p>
+        </div>
+    </div>
+
+    <div id="offer-modal" class="fixed inset-0 z-50 bg-brand_text/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4">
+        <div class="bg-brand_surface w-full max-w-md transform translate-y-4 transition-transform duration-500 relative border grid-line shadow-2xl">
+            <div class="border-b grid-line p-5 flex justify-between items-center bg-brand_bg">
+                <span class="text-[9px] uppercase tracking-[0.3em] font-bold text-brand_blue">Make Your Offer</span>
+                <button onclick="closeOfferModal()" class="text-brand_muted hover:text-brand_text text-2xl font-light ease-editorial leading-none">&times;</button>
+            </div>
+            
+            <form id="offerForm" onsubmit="handleOfferSubmit(event)" class="p-8 space-y-6">
+                <div class="text-center mb-6">
+                    <h3 class="font-serif text-3xl text-brand_blue mb-2">Send an Offer</h3>
+                    <p class="text-xs text-brand_muted font-medium">Send us your price for a quick review.</p>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[8px] uppercase tracking-widest font-bold text-brand_muted mb-1">Item Name</label>
+                        <input type="text" id="modal-product-name" readonly class="w-full bg-brand_bg border grid-line text-brand_text font-serif italic p-3 text-lg focus:outline-none">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[8px] uppercase tracking-widest font-bold text-brand_muted mb-1">Your Price ($)</label>
+                            <input type="number" required placeholder="Amount" class="w-full bg-transparent border-b grid-line text-brand_text p-2 text-sm focus:border-brand_blue focus:outline-none ease-editorial rounded-none">
+                        </div>
+                        <div>
+                            <label class="block text-[8px] uppercase tracking-widest font-bold text-brand_muted mb-1">Zip Code</label>
+                            <input type="text" required placeholder="Zip Code" class="w-full bg-transparent border-b grid-line text-brand_text p-2 text-sm focus:border-brand_blue focus:outline-none ease-editorial rounded-none">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-tactile w-full py-4 mt-6 border border-brand_blue text-brand_blue bg-brand_surface text-[10px] font-bold uppercase tracking-[0.2em] text-center">
+                    Send Offer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="fixed inset-y-0 right-0 z-[60] w-full md:w-[450px] bg-brand_surface border-l grid-line shadow-2xl transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
+        <div class="border-b grid-line p-6 flex justify-between items-center bg-brand_bg">
+            <span class="font-serif text-2xl text-brand_blue italic">Your Cart</span>
+            <button onclick="toggleCartModal()" class="text-brand_muted hover:text-brand_text text-2xl font-light ease-editorial leading-none">&times;</button>
+        </div>
+        
+        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4">
+            <p class="text-brand_muted text-xs font-medium text-center py-10 italic">Your cart is empty.</p>
+        </div>
+        
+        <div id="cart-footer" class="hidden border-t grid-line p-6 bg-brand_bg">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-[9px] uppercase tracking-widest font-bold text-brand_muted">Subtotal (USD)</span>
+                <span id="cart-total" class="font-serif text-3xl text-brand_blue">$0</span>
+            </div>
+            <button onclick="alert('Proceeding to Checkout Checkout...')" class="btn-tactile w-full py-4 border border-brand_blue text-brand_blue bg-brand_surface text-[10px] font-bold uppercase tracking-[0.2em] text-center">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+    <div id="cart-backdrop" onclick="toggleCartModal()" class="fixed inset-0 bg-brand_text/20 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-500"></div>
+
+    <script>
+        // Dynamic Header Logic
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            const topBar = document.getElementById('top-bar');
+            
+            if (window.scrollY > 40) {
+                header.classList.remove('top-8', 'bg-transparent', 'border-t', 'border-b-0');
+                header.classList.add('top-0', 'bg-brand_surface/95', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-t-0');
+                topBar.classList.add('-translate-y-full');
+            } else {
+                header.classList.add('top-8', 'bg-transparent', 'border-t', 'border-b-0');
+                header.classList.remove('top-0', 'bg-brand_surface/95', 'backdrop-blur-md', 'shadow-sm', 'border-b', 'border-t-0');
+                topBar.classList.remove('-translate-y-full');
+            }
+        });
+
+        // Init Swiper
+        document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.testimonialSwiper', {
+                slidesPerView: 1, spaceBetween: 30, loop: true,
+                autoplay: { delay: 6000, disableOnInteraction: false },
+                pagination: { el: '.swiper-pagination', clickable: true },
+                effect: 'fade', fadeEffect: { crossFade: true }
+            });
+        });
+
+        // Scroll Reveal Engine
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) entry.target.classList.add("active");
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(el => observer.observe(el));
+        });
+
+        // Modals Logic
+        function openOfferModal(productName) {
+            document.getElementById('modal-product-name').value = productName;
+            const modal = document.getElementById('offer-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.firstElementChild.classList.remove('translate-y-4');
+        }
+        function closeOfferModal() {
+            const modal = document.getElementById('offer-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.firstElementChild.classList.add('translate-y-4');
+        }
+        function handleOfferSubmit(e) {
+            e.preventDefault();
+            alert("Offer Sent. We will review it shortly.");
+            closeOfferModal();
+            document.getElementById('offerForm').reset();
+        }
+
+        // Improved Cart Logic with Quantities & Toasts
+        let cart = [];
+        
+        function showToast(name) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = name;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        function addToCart(id, name, price, img) {
+            let existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ id, name, price, img, qty: 1 });
+            }
+            updateCartUI();
+            
+            const count = document.getElementById('cart-count');
+            count.classList.add('bg-brand_blue', 'text-white', 'border-brand_blue');
+            setTimeout(() => count.classList.remove('bg-brand_blue', 'text-white', 'border-brand_blue'), 400);
+
+            showToast(name);
+        }
+
+        function updateQuantity(id, change) {
+            let item = cart.find(item => item.id === id);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+                updateCartUI();
+            }
+        }
+
+        function toggleCartModal() {
+            const cartModal = document.getElementById('cart-modal');
+            const backdrop = document.getElementById('cart-backdrop');
+            if (cartModal.classList.contains('translate-x-full')) {
+                cartModal.classList.remove('translate-x-full');
+                backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                cartModal.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+            
+            const itemsContainer = document.getElementById('cart-items');
+            const footer = document.getElementById('cart-footer');
+            
+            if(cart.length === 0) {
+                itemsContainer.innerHTML = '<p class="text-brand_muted text-xs font-medium text-center py-10 italic">Your cart is empty.</p>';
+                footer.classList.add('hidden');
+                return;
+            }
+
+            footer.classList.remove('hidden');
+            itemsContainer.innerHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach((item) => {
+                subtotal += (item.price * item.qty);
+                itemsContainer.innerHTML += `
+                    <div class="flex gap-4 bg-brand_surface p-4 border grid-line mb-3">
+                        <div class="w-16 h-16 bg-brand_bg border grid-line flex-shrink-0">
+                            <img src="${item.img}" class="w-full h-full object-cover opacity-90" alt="${item.name}">
+                        </div>
+                        <div class="flex-grow flex flex-col justify-between">
+                            <div class="flex justify-between items-start">
+                                <p class="font-serif text-lg text-brand_text leading-none">${item.name}</p>
+                                <button onclick="updateQuantity('${item.id}', -${item.qty})" class="text-brand_muted hover:text-brand_accent ease-editorial leading-none">&times;</button>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <div class="flex items-center border grid-line bg-brand_bg">
+                                    <button onclick="updateQuantity('${item.id}', -1)" class="px-2 py-1 text-brand_muted hover:text-brand_text">-</button>
+                                    <span class="text-[10px] font-bold px-2">${item.qty}</span>
+                                    <button onclick="updateQuantity('${item.id}', 1)" class="px-2 py-1 text-brand_muted hover:text-brand_text">+</button>
+                                </div>
+                                <span class="font-sans font-medium text-brand_text text-sm">$${(item.price * item.qty).toLocaleString()}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-total').innerText = '$' + subtotal.toLocaleString() + '.00';
+        }
+    </script>
+</body>
+</html>
